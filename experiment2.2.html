@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FSD Experiment 2.2</title>
+  <style>
+    p {border: 1px solid black;border-radius: 5px;padding:10px;}
+  </style>
+</head>
+<body>
+
+  <h2>Product List</h2>
+
+  <label for="categoryFilter">Filter Items by Category:</label>
+  <select id="categoryFilter" onchange="filterProducts()">
+    <option value="All">All</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Books">Books</option>
+  </select>
+
+  <div id="productList"></div>
+
+  <script>
+    // Adding few sample products
+    const products = [
+      { itemName: "T-Shirt", category: "Clothing" },
+      { itemName: "Jeans", category: "Clothing" },
+      { itemName: "Headphones", category: "Electronics" },
+      { itemName: "Smartphone", category: "Electronics" },
+      { itemName: "Novel", category: "Books" },
+      { itemName: "Cookbook", category: "Books" }
+    ];
+
+    function displayProducts(filteredProducts) {
+      const productList = document.getElementById("productList");
+      productList.innerHTML = ""; 
+
+      filteredProducts.forEach(product => {
+        const p = document.createElement("p");
+        p.textContent = product.itemName;
+        productList.appendChild(p);
+      });
+    }
+
+    // Function to filter products based on selected category
+    function filterProducts() {
+      const selectedCategory = document.getElementById("categoryFilter").value;
+
+      if (selectedCategory === "All") {
+        displayProducts(products);
+      } else {
+        const filtered = products.filter(p => p.category === selectedCategory);
+        displayProducts(filtered);
+      }
+    }
+
+    // Initial display of all products
+    window.onload = function() {
+      displayProducts(products);
+    };
+  </script>
+
+</body>
+</html>
